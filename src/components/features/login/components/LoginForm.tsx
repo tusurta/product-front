@@ -24,6 +24,7 @@ export const LoginForm: FC = () => {
           disabled={!!errors.password || !!errors.username}
           loading={isLoadingByLogin}
         />
+        <input {...register("withError")} type="checkbox" /> withError
       </form>
     </Box>
   );

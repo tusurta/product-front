@@ -2,7 +2,7 @@ import { LOCALSTORAGE_KEY, ROUTE_PATH } from "common/constants";
 import { useModal } from "common/hooks/useModal";
 import { getItemLocalStorage } from "common/localStorage";
 import { isValidToken } from "common/util";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "store";
@@ -12,6 +12,7 @@ import { useCreateUserMutation } from "store/services/user";
 type LoginInput = {
   username: string;
   password: string;
+  withError: boolean;
 };
 
 export const useAuth = () => {
@@ -43,8 +44,12 @@ export const useAuth = () => {
     }
   }, [isError]);
 
-  const login: SubmitHandler<LoginInput> = async ({ username, password }) => {
+  const login: SubmitHandler<LoginInput> = async ({ username, password, withError }) => {
     try {
+      if (withError) {
+        setIsVisible(true);
+        return;
+      }
       await createUser({
         user: {
           username,
