@@ -1,11 +1,20 @@
-import { createSlice, isAnyOf } from "@reduxjs/toolkit";
+import { createAction, createSelector, createSlice, isAnyOf } from "@reduxjs/toolkit";
 import { enhancedApi as userApi } from "./services/user";
 import type { RootState } from "./index";
+import { setItemLocalStorage } from "common/localStorage";
+import { LOCALSTORAGE_KEY } from "common/constants";
 
 const initialState = {
-  token: null,
   isAuthenticated: false,
-} as { token: string | null; isAuthenticated: boolean };
+} as { isAuthenticated: boolean };
+
+const authISelector = (state: RootState) => state.auth;
+export const isAuthenticatedSelecor = createSelector(
+  authISelector,
+  (state) => state.isAuthenticated
+);
+
+export const setIsAuthenticated = createAction<boolean>("auth/setIsAuthenticated");
 
 const slice = createSlice({
   name: "auth",
@@ -15,12 +24,14 @@ const slice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(setIsAuthenticated, (state, { payload: isAuthenticated }) => {
+        state.isAuthenticated = isAuthenticated;
+      })
       .addMatcher(userApi.endpoints.createUser.matchFulfilled, (state, action) => {
-        state.token = "";
         state.isAuthenticated = true;
+        setItemLocalStorage(LOCALSTORAGE_KEY.AUTH_TOKEN, "Test_Token");
       })
       .addMatcher(userApi.endpoints.createUser.matchRejected, (state, action) => {
-        state.token = null;
         state.isAuthenticated = false;
       })
       .addMatcher(
@@ -29,7 +40,6 @@ const slice = createSlice({
           userApi.endpoints.logoutUser.matchRejected
         ),
         (state) => {
-          state.token = null;
           state.isAuthenticated = false;
         }
       );
@@ -38,5 +48,3 @@ const slice = createSlice({
 
 export const { logout } = slice.actions;
 export default slice.reducer;
-
-export const selectIsAuthenticated = (state: RootState) => state.auth.isAuthenticated;

@@ -1,23 +1,23 @@
 // Or from '@reduxjs/toolkit/query' if not using the auto-generated hooks
 import { createApi, fetchBaseQuery, retry } from "@reduxjs/toolkit/query/react";
+import { LOCALSTORAGE_KEY } from "common/constants";
+import { getItemLocalStorage } from "common/localStorage";
 import { RootState } from "store";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: import.meta.env.DEV
-    ? "http://localhost:5000"
-    : import.meta.env.VITE_API_URL,
-  prepareHeaders: (headers, { getState }) => {
+  baseUrl: import.meta.env.VITE_API_URL,
+  prepareHeaders: (headers) => {
     // By default, if we have a token in the store, let's use that for authenticated requests
-    const token = (getState() as RootState).auth.token;
+    const token = getItemLocalStorage<string>(LOCALSTORAGE_KEY.AUTH_TOKEN);
     if (token) {
-      headers.set("authentication", `Bearer ${token}`);
+      headers.set("api_key", `${token}`);
     }
     return headers;
   },
 });
 
-const baseQueryWithRetry = retry(baseQuery, { maxRetries: 6 });
-
+const baseQueryWithRetry = retry(baseQuery, { maxRetries: 2 });
+console.log({ baseurl: import.meta.env.VITE_API_URL });
 // initialize an empty api service that we'll inject endpoints into later as needed
 export const api = createApi({
   reducerPath: "splitApi",

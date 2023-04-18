@@ -5,37 +5,18 @@ const injectedRtkApi = api.injectEndpoints({
       query: (queryArg) => ({ url: `/pet`, method: "PUT", body: queryArg.pet }),
     }),
     addPet: build.mutation<AddPetApiResponse, AddPetApiArg>({
-      query: (queryArg) => ({
-        url: `/pet`,
-        method: "POST",
-        body: queryArg.pet,
-      }),
+      query: (queryArg) => ({ url: `/pet`, method: "POST", body: queryArg.pet }),
     }),
-    findPetsByStatus: build.query<
-      FindPetsByStatusApiResponse,
-      FindPetsByStatusApiArg
-    >({
-      query: (queryArg) => ({
-        url: `/pet/findByStatus`,
-        params: { status: queryArg.status },
-      }),
+    findPetsByStatus: build.query<FindPetsByStatusApiResponse, FindPetsByStatusApiArg>({
+      query: (queryArg) => ({ url: `/pet/findByStatus`, params: { status: queryArg.status } }),
     }),
-    findPetsByTags: build.query<
-      FindPetsByTagsApiResponse,
-      FindPetsByTagsApiArg
-    >({
-      query: (queryArg) => ({
-        url: `/pet/findByTags`,
-        params: { tags: queryArg.tags },
-      }),
+    findPetsByTags: build.query<FindPetsByTagsApiResponse, FindPetsByTagsApiArg>({
+      query: (queryArg) => ({ url: `/pet/findByTags`, params: { tags: queryArg.tags } }),
     }),
     getPetById: build.query<GetPetByIdApiResponse, GetPetByIdApiArg>({
       query: (queryArg) => ({ url: `/pet/${queryArg.petId}` }),
     }),
-    updatePetWithForm: build.mutation<
-      UpdatePetWithFormApiResponse,
-      UpdatePetWithFormApiArg
-    >({
+    updatePetWithForm: build.mutation<UpdatePetWithFormApiResponse, UpdatePetWithFormApiArg>({
       query: (queryArg) => ({
         url: `/pet/${queryArg.petId}`,
         method: "POST",
@@ -63,14 +44,12 @@ export type AddPetApiArg = {
   /** Create a new pet in the store */
   pet: Pet;
 };
-export type FindPetsByStatusApiResponse =
-  /** status 200 successful operation */ Pet[];
+export type FindPetsByStatusApiResponse = /** status 200 successful operation */ Pet[];
 export type FindPetsByStatusApiArg = {
   /** Status values that need to be considered for filter */
   status?: "available" | "pending" | "sold";
 };
-export type FindPetsByTagsApiResponse =
-  /** status 200 successful operation */ Pet[];
+export type FindPetsByTagsApiResponse = /** status 200 successful operation */ Pet[];
 export type FindPetsByTagsApiArg = {
   /** Tags to filter by */
   tags?: string[];

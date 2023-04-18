@@ -2,21 +2,13 @@ import { api } from "./emptyApi";
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
     createUser: build.mutation<CreateUserApiResponse, CreateUserApiArg>({
-      query: (queryArg) => ({
-        url: `/user`,
-        method: "POST",
-        body: queryArg.user,
-      }),
+      query: (queryArg) => ({ url: `/user`, method: "POST", body: queryArg.user }),
     }),
     createUsersWithListInput: build.mutation<
       CreateUsersWithListInputApiResponse,
       CreateUsersWithListInputApiArg
     >({
-      query: (queryArg) => ({
-        url: `/user/createWithList`,
-        method: "POST",
-        body: queryArg.body,
-      }),
+      query: (queryArg) => ({ url: `/user/createWithList`, method: "POST", body: queryArg.body }),
     }),
     loginUser: build.query<LoginUserApiResponse, LoginUserApiArg>({
       query: (queryArg) => ({
@@ -38,16 +30,13 @@ const injectedRtkApi = api.injectEndpoints({
       }),
     }),
     deleteUser: build.mutation<DeleteUserApiResponse, DeleteUserApiArg>({
-      query: (queryArg) => ({
-        url: `/user/${queryArg.username}`,
-        method: "DELETE",
-      }),
+      query: (queryArg) => ({ url: `/user/${queryArg.username}`, method: "DELETE" }),
     }),
   }),
   overrideExisting: false,
 });
 export { injectedRtkApi as enhancedApi };
-export type CreateUserApiResponse = unknown;
+export type CreateUserApiResponse = /** status 200 successful operation */ User;
 export type CreateUserApiArg = {
   /** Created user object */
   user: User;
