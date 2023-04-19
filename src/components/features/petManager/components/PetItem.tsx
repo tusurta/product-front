@@ -10,7 +10,7 @@ export const PetItem: FC<Props> = ({}) => {
       </figure>
       <div className="card-body">
         <h2 className="card-title">
-          Dog
+          Item
           <div className="badge badge-secondary">NEW</div>
         </h2>
         <p>If a dog chews shoes whose shoes does he choose?</p>

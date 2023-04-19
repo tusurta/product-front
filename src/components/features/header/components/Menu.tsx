@@ -1,4 +1,7 @@
+import { useHeader } from "../hooks/useHeader";
+
 export const Menu = () => {
+  const { goHome, goPets } = useHeader();
   return (
     <div className="dropdown">
       <label tabIndex={0} className="btn btn-ghost btn-circle">
@@ -22,13 +25,10 @@ export const Menu = () => {
         className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
       >
         <li>
-          <a>Home</a>
+          <a onClick={() => goHome()}>Home</a>
         </li>
         <li>
-          <a>Order</a>
-        </li>
-        <li>
-          <a>Pets</a>
+          <a onClick={() => goPets()}>Card</a>
         </li>
       </ul>
     </div>

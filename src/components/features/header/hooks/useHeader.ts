@@ -14,6 +14,7 @@ export const useHeader = () => {
     naviage(ROUTE_PATH.LOGIN);
   };
   const goProfile = () => naviage(ROUTE_PATH.USER);
+  const goPets = () => naviage(ROUTE_PATH.PETS);
 
-  return { goHome, logout, goProfile };
+  return { goHome, logout, goProfile, goPets };
 };
