@@ -14,8 +14,8 @@ export const Login: FC = () => {
       <h1 className="mb-24 text-7xl font-bold">LOGIN</h1>
       <LoginComponent />
       <ConfirmModal
-        title="ログイン失敗"
-        content="IDまたは、パスワードが間違っています。"
+        title="Failed Login!"
+        content="Incorrect ID or password."
         open={isVisible}
         okCallback={okClickHandler}
       />

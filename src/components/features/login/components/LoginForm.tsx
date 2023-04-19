@@ -2,7 +2,7 @@ import { PrimaryBtn } from "components/ui/button/PrimaryBtn";
 import { Box } from "components/ui/layout/Box";
 import { TextField } from "components/ui/textField/TextField";
 import { FC } from "react";
-import { useAuth } from "../hooks/login.hook";
+import { useAuth } from "../hooks/useAuth";
 import { loginFormConst } from "../login.constant";
 
 export const LoginForm: FC = () => {
@@ -24,7 +24,14 @@ export const LoginForm: FC = () => {
           disabled={!!errors.password || !!errors.username}
           loading={isLoadingByLogin}
         />
-        <input {...register("withError")} type="checkbox" /> withError
+        <div className="flex items-center">
+          <input
+            className="checkbox w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+            {...register("withError")}
+            type="checkbox"
+          />
+          <label className="ml-2 text-sm font-medium">withError</label>
+        </div>
       </form>
     </Box>
   );

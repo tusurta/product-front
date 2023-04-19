@@ -13,6 +13,7 @@ export const useHeader = () => {
     dispatch(setIsAuthenticated(false));
     naviage(ROUTE_PATH.LOGIN);
   };
+  const goProfile = () => naviage(ROUTE_PATH.USER);
 
-  return { goHome, logout };
+  return { goHome, logout, goProfile };
 };

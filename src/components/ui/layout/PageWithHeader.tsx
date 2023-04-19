@@ -1,4 +1,5 @@
 import { FC, ReactNode } from "react";
+import { Footer } from "../others/Footer";
 
 type Props = {
   header: ReactNode;
@@ -15,6 +16,7 @@ export const PageWithHeader: FC<Props> = ({ children, theme, header }) => {
       <div className="flex flex-col min-h-screen items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
         {children}
       </div>
+      <Footer />
     </div>
   );
 };

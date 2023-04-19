@@ -1,4 +1,4 @@
-import { useHeader } from "../hooks/user.hooks";
+import { useHeader } from "../hooks/useHeader";
 
 export const Logo = () => {
   const { goHome } = useHeader();
