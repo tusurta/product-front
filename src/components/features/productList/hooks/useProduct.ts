@@ -13,6 +13,5 @@ export const useProduct = () => {
     dispatch(updateSelectedProduct(product));
     setIsVisible(true);
   };
-  useEffect(() => {}, []);
   return { products, isLodingByGetProduct, clickItem };
 };
