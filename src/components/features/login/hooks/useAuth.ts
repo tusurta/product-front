@@ -1,13 +1,14 @@
 import { LOCALSTORAGE_KEY, ROUTE_PATH } from "common/constants";
 import { useModal } from "common/hooks/useModal";
 import { getItemLocalStorage } from "common/localStorage";
-import { isValidToken } from "common/util";
+import { decodeToken } from "common/util";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "store";
 import { setIsAuthenticated } from "store/auth";
-import { useCreateUserMutation } from "store/services/user";
+import { useLoginMutation } from "store/services/enhanceEndpoints";
+import { FIXED_CACHE_KEY } from "store/services/fixedCacheKeys";
 
 type LoginInput = {
   username: string;
@@ -22,8 +23,9 @@ export const useAuth = () => {
     watch,
     formState: { errors },
   } = useForm<LoginInput>();
-  const [createUser, { isLoading: isLoadingByLogin, isSuccess, data, isError }] =
-    useCreateUserMutation();
+  const [login, { isLoading: isLoadingByLogin, isSuccess, data, isError }] = useLoginMutation({
+    fixedCacheKey: FIXED_CACHE_KEY.useLoginMutation,
+  });
   const navigate = useNavigate();
   const { state: locationState } = useLocation();
   const dispatch = useAppDispatch();
@@ -31,9 +33,9 @@ export const useAuth = () => {
 
   useEffect(() => {
     const token = getItemLocalStorage<string>(LOCALSTORAGE_KEY.AUTH_TOKEN);
-    const isAuthenticated = isValidToken(token);
-    dispatch(setIsAuthenticated(isAuthenticated));
-    if (isAuthenticated) {
+    const { isValid } = decodeToken(token);
+    dispatch(setIsAuthenticated(isValid));
+    if (isValid) {
       navigate(ROUTE_PATH.HOME);
     }
   }, []);
@@ -44,14 +46,14 @@ export const useAuth = () => {
     }
   }, [isError]);
 
-  const login: SubmitHandler<LoginInput> = async ({ username, password, withError }) => {
+  const submitLogin: SubmitHandler<LoginInput> = async ({ username, password, withError }) => {
     try {
       if (withError) {
         setIsVisible(true);
         return;
       }
-      await createUser({
-        user: {
+      await login({
+        body: {
           username,
           password,
         },
@@ -63,7 +65,15 @@ export const useAuth = () => {
     }
   };
 
-  return { errors, watch, register, login: handleSubmit(login), isLoadingByLogin, isSuccess, data };
+  return {
+    errors,
+    watch,
+    register,
+    login: handleSubmit(submitLogin),
+    isLoadingByLogin,
+    isSuccess,
+    data,
+  };
 };
 
 export default {};

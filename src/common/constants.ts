@@ -1,9 +1,10 @@
 export const ROUTE_PATH = {
   HOME: "/",
   USER: "/user",
-  PETS: "/pets",
+  PRODUCTS: "/products",
   ORDER: "/order",
   LOGIN: "/login",
+  SIGNUP: "/signup",
 } as const;
 
 export const ROUTE_PATH_ARRAY = Object.entries(ROUTE_PATH).map(([_, value]) => {
@@ -15,4 +16,5 @@ export const ROUTE_PATH_ARRAY = Object.entries(ROUTE_PATH).map(([_, value]) => {
 
 export const LOCALSTORAGE_KEY = {
   AUTH_TOKEN: "auth_token",
+  PROFILE_INFO: "profile_info",
 } as const;

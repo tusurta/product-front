@@ -4,16 +4,19 @@ const config: ConfigFile = {
   schemaFile: "./docs/swagger.yml",
   apiFile: "./src/store/services/emptyApi.ts",
   apiImport: "api",
-  hooks: true,
+  hooks: false,
   outputFiles: {
-    "./src/store/services/user.ts": {
-      filterEndpoints: [/user/i],
+    "./src/store/services/auth.ts": {
+      filterEndpoints: [/login/i, /signup/i],
+      exportName: "authApi",
     },
     "./src/store/services/order.ts": {
       filterEndpoints: [/order/i],
+      exportName: "orderApi",
     },
-    "./src/store/services/pet.ts": {
-      filterEndpoints: [/pet/i],
+    "./src/store/services/product.ts": {
+      filterEndpoints: [/product/i],
+      exportName: "productApi",
     },
   },
 };

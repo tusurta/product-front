@@ -2,7 +2,7 @@ import IconImg from "assets/user-icon.jpeg";
 import { useHeader } from "../hooks/useHeader";
 
 export const Avatar = () => {
-  const { logout, goProfile } = useHeader();
+  const { logout, goProfile, goOrders } = useHeader();
   return (
     <div className="dropdown dropdown-end">
       <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
@@ -17,6 +17,11 @@ export const Avatar = () => {
         <li>
           <a className="justify-between" onClick={() => goProfile()}>
             Profile
+          </a>
+        </li>
+        <li>
+          <a className="justify-between" onClick={() => goOrders()}>
+            Orders
             <span className="badge">New</span>
           </a>
         </li>

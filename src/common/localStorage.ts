@@ -1,10 +1,7 @@
 import { LocalStorageKeyType } from "./type";
 
 export class LocalStorage {
-  static setItemLocalStorage = (
-    key: LocalStorageKeyType,
-    value: string | number | boolean | Object
-  ) => {
+  static setItem = (key: LocalStorageKeyType, value: string | number | boolean | Object) => {
     try {
       window.localStorage.setItem(key, JSON.stringify(value));
     } catch (error) {
@@ -12,7 +9,7 @@ export class LocalStorage {
     }
   };
 
-  static getItemLocalStorage = <T extends any>(key: LocalStorageKeyType): T | undefined => {
+  static getItem = <T extends any>(key: LocalStorageKeyType): T | undefined => {
     try {
       const item = window.localStorage.getItem(key) as string;
       return item ? JSON.parse(item) : item;
@@ -21,7 +18,7 @@ export class LocalStorage {
     }
   };
 
-  static removeItemLocalStorage = (key: LocalStorageKeyType) => {
+  static removeItem = (key: LocalStorageKeyType) => {
     try {
       const item = window.localStorage.removeItem(key);
     } catch (error) {

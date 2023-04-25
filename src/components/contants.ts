@@ -1,3 +1,3 @@
 export const LOGIN = {
-  title: "Pet Shop",
+  title: "Drink Shop",
 } as const;

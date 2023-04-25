@@ -24,14 +24,6 @@ export const LoginForm: FC = () => {
           disabled={!!errors.password || !!errors.username}
           loading={isLoadingByLogin}
         />
-        <div className="flex items-center">
-          <input
-            className="checkbox w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-            {...register("withError")}
-            type="checkbox"
-          />
-          <label className="ml-2 text-sm font-medium">withError</label>
-        </div>
       </form>
     </Box>
   );

@@ -22,7 +22,7 @@ VITE_API_URL=http://localhost:4010
 ## 設定ファイル
 
 - `docs/swagger.yml`: API 仕様書ファイル(通信処理ファイルの自動生成に使用)
-- `.eslintrc.js`: eslit の設定ファイル
+- `.eslintrc.js`: eslit 設定ファイル
 - `.prettierrc`: prettier 設定ファイル
 - `openapi-config.ts`: `RTK Query`用の API 通信処理ファイル生成設定ファイル
 - `postcss.config.js`: CSS ファイルビルド設定ファイル

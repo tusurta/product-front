@@ -14,7 +14,8 @@ export const useHeader = () => {
     naviage(ROUTE_PATH.LOGIN);
   };
   const goProfile = () => naviage(ROUTE_PATH.USER);
-  const goPets = () => naviage(ROUTE_PATH.PETS);
+  const goProducts = () => naviage(ROUTE_PATH.PRODUCTS);
+  const goOrders = () => naviage(ROUTE_PATH.ORDER);
 
-  return { goHome, logout, goProfile, goPets };
+  return { goHome, logout, goProfile, goProducts, goOrders };
 };

@@ -1,8 +1,8 @@
 import { createAction, createSelector, createSlice, isAnyOf } from "@reduxjs/toolkit";
-import { enhancedApi as userApi } from "./services/user";
 import type { RootState } from "./index";
 import { setItemLocalStorage } from "common/localStorage";
 import { LOCALSTORAGE_KEY } from "common/constants";
+import { enhancedUserApi as userApi } from "store/services/enhanceEndpoints";
 
 const initialState = {
   isAuthenticated: false,
@@ -27,22 +27,13 @@ const slice = createSlice({
       .addCase(setIsAuthenticated, (state, { payload: isAuthenticated }) => {
         state.isAuthenticated = isAuthenticated;
       })
-      .addMatcher(userApi.endpoints.createUser.matchFulfilled, (state, action) => {
+      .addMatcher(userApi.endpoints.login.matchFulfilled, (state, { payload }) => {
         state.isAuthenticated = true;
-        setItemLocalStorage(LOCALSTORAGE_KEY.AUTH_TOKEN, "Test_Token");
+        setItemLocalStorage(LOCALSTORAGE_KEY.AUTH_TOKEN, payload.access_token ?? "");
       })
-      .addMatcher(userApi.endpoints.createUser.matchRejected, (state, action) => {
+      .addMatcher(userApi.endpoints.login.matchRejected, (state, action) => {
         state.isAuthenticated = false;
-      })
-      .addMatcher(
-        isAnyOf(
-          userApi.endpoints.logoutUser.matchFulfilled,
-          userApi.endpoints.logoutUser.matchRejected
-        ),
-        (state) => {
-          state.isAuthenticated = false;
-        }
-      );
+      });
   },
 });
 

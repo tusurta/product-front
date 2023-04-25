@@ -1,7 +1,7 @@
 import { useHeader } from "../hooks/useHeader";
 
 export const Menu = () => {
-  const { goHome, goPets } = useHeader();
+  const { goHome, goProducts } = useHeader();
   return (
     <div className="dropdown">
       <label tabIndex={0} className="btn btn-ghost btn-circle">
@@ -28,7 +28,7 @@ export const Menu = () => {
           <a onClick={() => goHome()}>Home</a>
         </li>
         <li>
-          <a onClick={() => goPets()}>Card</a>
+          <a onClick={() => goProducts()}>Products</a>
         </li>
       </ul>
     </div>
