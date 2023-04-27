@@ -1,12 +1,12 @@
 import { OrderItem } from "components/features/orderList/components/OrderItem";
-import { FC } from "react";
+import { FC, memo } from "react";
 import { Order } from "store/services/order";
 
 type Props = {
   orders?: Order[];
 };
 
-export const OrderList: FC<Props> = ({ orders }) => {
+export const OrderList: FC<Props> = memo(({ orders }) => {
   return (
     <div className="overflow-x-auto">
       <table className="table table-zebra w-full">
@@ -29,4 +29,4 @@ export const OrderList: FC<Props> = ({ orders }) => {
       </table>
     </div>
   );
-};
+});

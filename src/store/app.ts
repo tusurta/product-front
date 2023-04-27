@@ -1,4 +1,4 @@
-import { createAction, createSelector, createSlice } from "@reduxjs/toolkit";
+import { createAction, createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "store";
 import { Product } from "store/services/product";
 
@@ -21,24 +21,19 @@ export const selectedProductSelector = createSelector(
   (state) => state.selectedProduct
 );
 
-// Action
-export const updateModalState = createAction<ModalType | undefined>("app/updateModalState");
-export const updateSelectedProduct = createAction<Product | undefined>("app/updateSelectedProduct");
-
 // Slice
 const slice = createSlice({
   name: "app",
   initialState,
-  reducers: {},
-  extraReducers: (builder) => {
-    builder
-      .addCase(updateModalState, (state, { payload }) => {
-        state.modalType = payload;
-      })
-      .addCase(updateSelectedProduct, (state, { payload }) => {
-        state.selectedProduct = payload;
-      });
+  reducers: {
+    updateModalState: (state, { payload }: PayloadAction<ModalType | undefined>) => {
+      state.modalType = payload;
+    },
+    updateSelectedProduct: (state, { payload }: PayloadAction<Product | undefined>) => {
+      state.selectedProduct = payload;
+    },
   },
 });
 
+export const { updateModalState, updateSelectedProduct } = slice.actions;
 export default slice.reducer;

@@ -1,5 +1,5 @@
 import { parseDate } from "common/util";
-import { FC } from "react";
+import { FC, memo } from "react";
 import { Order } from "store/services/order";
 
 type Props = {
@@ -7,7 +7,7 @@ type Props = {
   index: number;
 };
 
-export const OrderItem: FC<Props> = ({ order, index }) => {
+export const OrderItem: FC<Props> = memo(({ order, index }) => {
   return (
     <tr>
       <th>{index + 1}</th>
@@ -19,4 +19,4 @@ export const OrderItem: FC<Props> = ({ order, index }) => {
       <td>{order?.pending ? "Served" : "Pending"}</td>
     </tr>
   );
-};
+});

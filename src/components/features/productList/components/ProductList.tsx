@@ -1,4 +1,4 @@
-import { FC, Fragment } from "react";
+import { FC, Fragment, memo } from "react";
 import { Product } from "store/services/product";
 import { ProductItem } from "./ProductItem";
 
@@ -6,7 +6,7 @@ type Props = {
   products?: Product[];
   clickHandler: (product: Product) => void;
 };
-export const ProductList: FC<Props> = ({ products, clickHandler }) => {
+export const ProductList: FC<Props> = memo(({ products, clickHandler }) => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-6">
       {products?.map((product, index) => (
@@ -14,4 +14,4 @@ export const ProductList: FC<Props> = ({ products, clickHandler }) => {
       ))}
     </div>
   );
-};
+});

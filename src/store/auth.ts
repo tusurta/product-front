@@ -1,4 +1,4 @@
-import { createAction, createSelector, createSlice, isAnyOf } from "@reduxjs/toolkit";
+import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "./index";
 import { setItemLocalStorage } from "common/localStorage";
 import { LOCALSTORAGE_KEY } from "common/constants";
@@ -14,19 +14,17 @@ export const isAuthenticatedSelecor = createSelector(
   (state) => state.isAuthenticated
 );
 
-export const setIsAuthenticated = createAction<boolean>("auth/setIsAuthenticated");
-
 const slice = createSlice({
   name: "auth",
   initialState,
   reducers: {
     logout: () => initialState,
+    setIsAuthenticated: (state, { payload: isAuthenticated }: PayloadAction<boolean>) => {
+      state.isAuthenticated = isAuthenticated;
+    },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(setIsAuthenticated, (state, { payload: isAuthenticated }) => {
-        state.isAuthenticated = isAuthenticated;
-      })
       .addMatcher(userApi.endpoints.login.matchFulfilled, (state, { payload }) => {
         state.isAuthenticated = true;
         setItemLocalStorage(LOCALSTORAGE_KEY.AUTH_TOKEN, payload.access_token ?? "");
@@ -37,5 +35,5 @@ const slice = createSlice({
   },
 });
 
-export const { logout } = slice.actions;
+export const { logout, setIsAuthenticated } = slice.actions;
 export default slice.reducer;

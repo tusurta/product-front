@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import { Product } from "store/services/product";
 
 type Props = {
@@ -7,7 +7,7 @@ type Props = {
   clickHandler: (product: Product) => void;
 };
 
-export const ProductItem: FC<Props> = ({ index, product, clickHandler }) => {
+export const ProductItem: FC<Props> = memo(({ index, product, clickHandler }) => {
   return (
     <div
       className="card w-full max-w-md bg-base-100 shadow-xl cursor-pointer hover:opacity-50"
@@ -30,4 +30,4 @@ export const ProductItem: FC<Props> = ({ index, product, clickHandler }) => {
       </div>
     </div>
   );
-};
+});
